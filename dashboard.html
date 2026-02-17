@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Account Overview</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1 id="greeting">Hello</h1>
+
+    <section>
+      <label for="account-select">View Account Details:</label>
+      <select id="account-select">
+        <option value="">-- Select --</option>
+        <option value="checking">1001160140 Checking</option>
+      </select>
+      <button class="btn" id="view-account">Go</button>
+    </section>
+
+    <section id="history" class="history" hidden>
+      <h2>Account History</h2>
+      <table>
+        <thead>
+          <tr><th>Date</th><th>Description</th><th>Amount</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2026-02-01</td><td>Deposit</td><td>$2,000.00</td></tr>
+          <tr><td>2026-02-05</td><td>Grocery Store</td><td>-$150.25</td></tr>
+          <tr><td>2026-02-10</td><td>Electric Bill</td><td>-$80.50</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <p><a href="#" id="signoff" class="link">Sign Off</a></p>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
