@@ -4,8 +4,13 @@ This repository contains a small static site to exercise a simple online-banking
 
 Flow implemented:
 1. Open the homepage and click `ONLINE BANKING LOGIN`.
-2. On `Online Banking Login`, enter `jsmith` / `Demo1234` and click `Login`.
+2. On `Online Banking Login`, enter one of the test credentials and click `Login`:
+
+- `jsmith` / `Demo1234`
+- `bmars` / `pass1234`
+- `tswift` / `pass1234`
 3. Successful login redirects to a page showing `Hello John Smith`.
+3. Successful login redirects to the dashboard and shows `Hello <Display Name>` (e.g. `Hello John Smith`).
 4. Select `1001160140 Checking` and click `Go` to show account history.
 5. Click `Sign Off` to log out.
 

@@ -5,9 +5,17 @@ function handleLogin(e){
   const p = document.getElementById('password').value;
   const err = document.getElementById('error');
   err.textContent = '';
-  // Expected credentials
-  if(u === 'jsmith' && p === 'Demo1234'){
-    sessionStorage.setItem('user','jsmith');
+  // Allowed users (username: { password, displayName })
+  const allowed = {
+    jsmith: { password: 'Demo1234', displayName: 'John Smith' },
+    bmars:  { password: 'pass1234', displayName: 'Brian Mars' },
+    tswift: { password: 'pass1234', displayName: 'Taylor Swift' }
+  };
+
+  const acct = allowed[u];
+  if(acct && acct.password === p){
+    sessionStorage.setItem('user', u);
+    sessionStorage.setItem('displayName', acct.displayName);
     // Redirect to dashboard
     window.location.href = 'dashboard.html';
     return false;
@@ -24,7 +32,8 @@ function protectAndRenderDashboard(){
   }
   // Show greeting for jsmith
   const greeting = document.getElementById('greeting');
-  if(user === 'jsmith') greeting.textContent = 'Hello John Smith';
+  const display = sessionStorage.getItem('displayName') || (user ? user : '');
+  greeting.textContent = `Hello ${display}`;
 
   const viewBtn = document.getElementById('view-account');
   const select = document.getElementById('account-select');
