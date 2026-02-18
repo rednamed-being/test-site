@@ -23,6 +23,29 @@
       <p id="error" class="error" aria-live="polite"></p>
     </form>
   </main>
-  <script src="app.js"></script>
+  <script>
+  // Inline app JS (login page)
+  function handleLogin(e){
+    e.preventDefault();
+    const u = document.getElementById('username').value.trim();
+    const p = document.getElementById('password').value;
+    const err = document.getElementById('error');
+    err.textContent = '';
+    const allowed = {
+      jsmith: { password: 'Demo1234', displayName: 'John Smith' },
+      bmars:  { password: 'pass1234', displayName: 'Brian Mars' },
+      tswift: { password: 'pass1234', displayName: 'Taylor Swift' }
+    };
+    const acct = allowed[u];
+    if(acct && acct.password === p){
+      sessionStorage.setItem('user', u);
+      sessionStorage.setItem('displayName', acct.displayName);
+      window.location.href = 'dashboard.html';
+      return false;
+    }
+    err.textContent = 'Invalid username or password.';
+    return false;
+  }
+  </script>
 </body>
 </html>
