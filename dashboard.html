@@ -3,38 +3,81 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Account Overview</title>
+  <title>Account Overview &mdash; TestBank</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="container">
-    <h1 id="greeting">Hello</h1>
+  <header class="site-header">
+    <a class="logo" href="index.html">
+      <span class="logo-icon">&#9670;</span>
+      TestBank
+    </a>
+    <nav class="nav-right">
+      <span class="nav-user" id="header-user"></span>
+      <a class="nav-link" href="#" id="signoff">Sign Off</a>
+    </nav>
+  </header>
 
-    <section>
-      <label for="account-select">View Account Details:</label>
-      <select id="account-select">
-        <option value="">-- Select --</option>
-        <option value="checking">1001160140 Checking</option>
-      </select>
-      <button class="btn" id="view-account">Go</button>
-    </section>
+  <div class="page-wrapper">
+    <main class="container container-wide">
+      <h1 id="greeting">Hello</h1>
+      <p class="subtitle">Here&rsquo;s a summary of your accounts.</p>
 
-    <section id="history" class="history" hidden>
-      <h2>Account History</h2>
-      <table>
-        <thead>
-          <tr><th>Date</th><th>Description</th><th>Amount</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>2026-02-01</td><td>Deposit</td><td>$2,000.00</td></tr>
-          <tr><td>2026-02-05</td><td>Grocery Store</td><td>-$150.25</td></tr>
-          <tr><td>2026-02-10</td><td>Electric Bill</td><td>-$80.50</td></tr>
-        </tbody>
-      </table>
-    </section>
+      <div class="account-card">
+        <p class="balance-label">Available Balance</p>
+        <p class="account-balance">$1,769.25</p>
+        <p class="account-number">&#183;&#183;&#183;&#183; &#183;&#183;&#183;&#183; &#183;&#183;&#183;&#183; 0140</p>
+        <p class="account-type">Checking Account</p>
+      </div>
 
-    <p><a href="#" id="signoff" class="link">Sign Off</a></p>
-  </main>
+      <section>
+        <div class="select-row">
+          <div class="form-group">
+            <label for="account-select">View Account Details</label>
+            <select id="account-select">
+              <option value="">-- Select an account --</option>
+              <option value="checking">1001160140 &mdash; Checking</option>
+            </select>
+          </div>
+          <button class="btn btn-sm" id="view-account">View</button>
+        </div>
+      </section>
+
+      <section id="history" class="history" hidden>
+        <div class="section-header">
+          <h2>&#128203;&nbsp; Transaction History</h2>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Description</th><th>Amount</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2026-02-01</td>
+              <td>Direct Deposit</td>
+              <td class="amount-positive">+$2,000.00</td>
+            </tr>
+            <tr>
+              <td>2026-02-05</td>
+              <td>Grocery Store</td>
+              <td class="amount-negative">&minus;$150.25</td>
+            </tr>
+            <tr>
+              <td>2026-02-10</td>
+              <td>Electric Bill</td>
+              <td class="amount-negative">&minus;$80.50</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <div class="signoff-row">
+        <a href="#" id="signoff-bottom" class="link">Sign Off</a>
+      </div>
+    </main>
+  </div>
+
+  <footer class="page-footer">&copy; 2026 TestBank Demo &mdash; For testing purposes only.</footer>
   <script>
   // Inline app JS (dashboard page)
   function protectAndRenderDashboard(){
@@ -43,13 +86,16 @@
       window.location.href = 'index.html';
       return;
     }
-    const greeting = document.getElementById('greeting');
-    const display = sessionStorage.getItem('displayName') || (user ? user : '');
-    greeting.textContent = `Hello ${display}`;
+    const display = sessionStorage.getItem('displayName') || user;
+    document.getElementById('greeting').textContent = `Hello, ${display}`;
 
-    const viewBtn = document.getElementById('view-account');
-    const select = document.getElementById('account-select');
-    const history = document.getElementById('history');
+    // Show username in header
+    const headerUser = document.getElementById('header-user');
+    if(headerUser) headerUser.textContent = display;
+
+    const viewBtn  = document.getElementById('view-account');
+    const select   = document.getElementById('account-select');
+    const history  = document.getElementById('history');
 
     viewBtn.addEventListener('click', ()=>{
       if(select.value === 'checking'){
@@ -60,11 +106,15 @@
       }
     });
 
-    document.getElementById('signoff').addEventListener('click', (ev)=>{
+    // Both sign-off links
+    function doSignOff(ev){
       ev.preventDefault();
       sessionStorage.removeItem('user');
+      sessionStorage.removeItem('displayName');
       window.location.href = 'index.html';
-    });
+    }
+    document.getElementById('signoff').addEventListener('click', doSignOff);
+    document.getElementById('signoff-bottom').addEventListener('click', doSignOff);
   }
   if(document.getElementById('greeting')){
     protectAndRenderDashboard();

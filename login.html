@@ -3,26 +3,48 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Online Banking Login</title>
+  <title>Sign In &mdash; TestBank</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="container">
-    <h1>Online Banking Login</h1>
-    <form id="login-form" onsubmit="return handleLogin(event)">
-      <label for="username">Username</label>
-      <input id="username" name="username" autocomplete="username" required>
+  <header class="site-header">
+    <a class="logo" href="index.html">
+      <span class="logo-icon">&#9670;</span>
+      TestBank
+    </a>
+    <nav class="nav-right">
+      <a class="nav-link" href="index.html">&#8592; Back</a>
+    </nav>
+  </header>
 
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" autocomplete="current-password" required>
+  <div class="page-wrapper">
+    <main class="container">
+      <h1>Welcome back</h1>
+      <p class="subtitle">Sign in to your TestBank account</p>
 
-      <div class="actions">
-        <button class="btn" type="submit">Login</button>
-        <a class="link" href="index.html">Cancel</a>
-      </div>
-      <p id="error" class="error" aria-live="polite"></p>
-    </form>
-  </main>
+      <form id="login-form" onsubmit="return handleLogin(event)">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input id="username" name="username" placeholder="e.g. jsmith" autocomplete="username" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" autocomplete="current-password" required>
+        </div>
+
+        <button class="btn btn-full" type="submit">&#128274;&nbsp; Sign In</button>
+        <p id="error" class="error" aria-live="polite"></p>
+      </form>
+
+      <div class="divider">or</div>
+      <p style="text-align:center;font-size:13px;color:#64748b">
+        Need help? <a class="link" href="index.html">Return to home</a>
+      </p>
+    </main>
+  </div>
+
+  <footer class="page-footer">&copy; 2026 TestBank Demo &mdash; For testing purposes only.</footer>
   <script>
   // Inline app JS (login page)
   function handleLogin(e){
