@@ -37,36 +37,65 @@
             <select id="account-select">
               <option value="">-- Select an account --</option>
               <option value="checking">1001160140 &mdash; Checking</option>
+              <option value="savings">2003820570 &mdash; Savings</option>
+              <option value="credit">3007541280 &mdash; Credit Card</option>
             </select>
           </div>
           <button class="btn btn-sm" id="view-account">View</button>
         </div>
       </section>
 
-      <section id="history" class="history" hidden>
+      <section id="history-checking" class="history" hidden>
         <div class="section-header">
-          <h2>&#128203;&nbsp; Transaction History</h2>
+          <h2>&#128203;&nbsp; Checking &mdash; Transaction History</h2>
         </div>
         <table>
           <thead>
             <tr><th>Date</th><th>Description</th><th>Amount</th></tr>
           </thead>
           <tbody>
-            <tr>
-              <td>2026-02-01</td>
-              <td>Direct Deposit</td>
-              <td class="amount-positive">+$2,000.00</td>
-            </tr>
-            <tr>
-              <td>2026-02-05</td>
-              <td>Grocery Store</td>
-              <td class="amount-negative">&minus;$150.25</td>
-            </tr>
-            <tr>
-              <td>2026-02-10</td>
-              <td>Electric Bill</td>
-              <td class="amount-negative">&minus;$80.50</td>
-            </tr>
+            <tr><td>2026-02-01</td><td>Direct Deposit</td><td class="amount-positive">+$2,000.00</td></tr>
+            <tr><td>2026-02-05</td><td>Grocery Store</td><td class="amount-negative">&minus;$150.25</td></tr>
+            <tr><td>2026-02-10</td><td>Electric Bill</td><td class="amount-negative">&minus;$80.50</td></tr>
+            <tr><td>2026-02-14</td><td>Online Transfer Out</td><td class="amount-negative">&minus;$500.00</td></tr>
+            <tr><td>2026-02-20</td><td>ATM Withdrawal</td><td class="amount-negative">&minus;$200.00</td></tr>
+            <tr><td>2026-03-01</td><td>Direct Deposit</td><td class="amount-positive">+$2,000.00</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="history-savings" class="history" hidden>
+        <div class="section-header">
+          <h2>&#128203;&nbsp; Savings &mdash; Transaction History</h2>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Description</th><th>Amount</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2026-01-15</td><td>Online Transfer In</td><td class="amount-positive">+$500.00</td></tr>
+            <tr><td>2026-02-14</td><td>Online Transfer In</td><td class="amount-positive">+$500.00</td></tr>
+            <tr><td>2026-02-28</td><td>Interest Credit</td><td class="amount-positive">+$3.42</td></tr>
+            <tr><td>2026-03-01</td><td>Withdrawal</td><td class="amount-negative">&minus;$200.00</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="history-credit" class="history" hidden>
+        <div class="section-header">
+          <h2>&#128203;&nbsp; Credit Card &mdash; Transaction History</h2>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Description</th><th>Amount</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2026-02-03</td><td>Restaurant</td><td class="amount-negative">&minus;$62.80</td></tr>
+            <tr><td>2026-02-07</td><td>Online Shopping</td><td class="amount-negative">&minus;$134.99</td></tr>
+            <tr><td>2026-02-12</td><td>Gas Station</td><td class="amount-negative">&minus;$48.20</td></tr>
+            <tr><td>2026-02-18</td><td>Streaming Service</td><td class="amount-negative">&minus;$15.99</td></tr>
+            <tr><td>2026-02-25</td><td>Payment &mdash; Thank You</td><td class="amount-positive">+$300.00</td></tr>
+            <tr><td>2026-03-02</td><td>Pharmacy</td><td class="amount-negative">&minus;$22.50</td></tr>
           </tbody>
         </table>
       </section>
@@ -95,13 +124,18 @@
 
     const viewBtn  = document.getElementById('view-account');
     const select   = document.getElementById('account-select');
-    const history  = document.getElementById('history');
+    const sections = {
+      checking: document.getElementById('history-checking'),
+      savings:  document.getElementById('history-savings'),
+      credit:   document.getElementById('history-credit'),
+    };
 
     viewBtn.addEventListener('click', ()=>{
-      if(select.value === 'checking'){
-        history.hidden = false;
+      // Hide all first
+      Object.values(sections).forEach(s => { if(s) s.hidden = true; });
+      if(sections[select.value]){
+        sections[select.value].hidden = false;
       } else {
-        history.hidden = true;
         alert('Please select an account.');
       }
     });
